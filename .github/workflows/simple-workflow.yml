@@ -1,0 +1,41 @@
+name: Simple Multi-Event Workflow
+ 
+on:
+  push:                # Trigger on push to any branch
+    branches:
+      - "**"
+  pull_request:        # Trigger on pull requests
+    branches:
+      - "**"
+  workflow_dispatch:   # Manual trigger
+  issues:              # Trigger on issue events
+    types: [opened, edited, closed]
+ 
+jobs:
+  main:
+    runs-on: ubuntu-latest
+ 
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+ 
+      - name: Print event info
+        run: |
+          echo "Event: ${{ github.event_name }}"
+          echo "Actor: ${{ github.actor }}"
+ 
+      - name: Push event
+        if: github.event_name == 'push'
+        run: echo "This workflow ran on a push."
+ 
+      - name: Pull request event
+        if: github.event_name == 'pull_request'
+        run: echo "This workflow ran on a pull request."
+ 
+      - name: Manual trigger event
+        if: github.event_name == 'workflow_dispatch'
+        run: echo "This workflow was manually triggered."
+ 
+      - name: Issue event
+        if: github.event_name == 'issues'
+        run: echo "This workflow ran on an issue event: ${{ github.event.action }}"
