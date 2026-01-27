@@ -25,17 +25,17 @@ jobs:
           echo "Actor: ${{ github.actor }}"
  
       - name: Push event
-        if: github.event_name == 'push'
+        if: ${{ github.event_name == 'push' }}
         run: echo "This workflow ran on a push."
  
       - name: Pull request event
-        if: github.event_name == 'pull_request'
+        if: ${{ github.event_name == 'pull_request' }}
         run: echo "This workflow ran on a pull request."
  
       - name: Manual trigger event
-        if: github.event_name == 'workflow_dispatch'
+        if: ${{ github.event_name == 'workflow_dispatch' }}
         run: echo "This workflow was manually triggered."
  
       - name: Issue event
-        if: github.event_name == 'issues'
+        if: ${{ github.event_name == 'issues' }}
         run: echo "This workflow ran on an issue event: ${{ github.event.action }}"
