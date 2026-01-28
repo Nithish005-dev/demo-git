@@ -10,6 +10,9 @@ on:
   workflow_dispatch:   # Manual trigger
   issues:              # Trigger on issue events
     types: [opened, edited, closed]
+
+    schedule:
+     - cron: "08 1 * * *"
  
 jobs:
   main:
